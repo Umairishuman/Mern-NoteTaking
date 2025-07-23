@@ -2,6 +2,7 @@ import express from "express";
 import noteRouter from "./routes/NotesRoutes.js";
 import { connectDB } from "./config/db.js";
 import dotenv from "dotenv";
+import rateLimiter from "./middleware/rateLimit.js";
 
 const PORT = process.env.PORT || 5000;
 const app = express();
@@ -11,6 +12,12 @@ connectDB();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(rateLimiter);
+
+app.use((req, res, next) => {
+	console.log(`Request method is ${req.method}`);
+	next();
+});
 app.use("/api/notes", noteRouter);
 
 app.listen(5000, () => {
