@@ -8,7 +8,6 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 
 dotenv.config();
-connectDB();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -20,6 +19,8 @@ app.use((req, res, next) => {
 });
 app.use("/api/notes", noteRouter);
 
-app.listen(5000, () => {
-	console.log("Server Started on Port 5000");
+connectDB().then(() => {
+	app.listen(5000, () => {
+		console.log("Server Started on Port 5000");
+	});
 });
