@@ -6,7 +6,7 @@ export default {
 		extend: {},
 	},
 	plugins: [daisyui],
-	daisyui: {
-		themes: ["forest", "light", "coffee", "dark"],
-	},
+	// daisyui: {
+	// 	themes: ["forest", "light", "coffee", "dark"],
+	// },
 };

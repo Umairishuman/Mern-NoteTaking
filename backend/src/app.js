@@ -3,6 +3,7 @@ import noteRouter from "./routes/NotesRoutes.js";
 import { connectDB } from "./config/db.js";
 import dotenv from "dotenv";
 import rateLimiter from "./middleware/rateLimit.js";
+import cors from "cors";
 
 const PORT = process.env.PORT || 5000;
 const app = express();
@@ -12,6 +13,11 @@ dotenv.config();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(rateLimiter);
+app.use(
+	cors({
+		origin: ["http://localhost:5173"],
+	})
+);
 
 app.use((req, res, next) => {
 	console.log(`Request method is ${req.method}`);

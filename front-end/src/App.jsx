@@ -4,7 +4,7 @@ import CreatePage from "./Pages/CreatePage";
 import NoteDetail from "./Pages/NoteDetail";
 const App = () => {
 	return (
-		<div data-theme="dark">
+		<div data-theme="forest">
 			<Routes>
 				<Route path="/" element={<Homepage />} />
 				<Route path="/create" element={<CreatePage />} />
