@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import toast from "react-hot-toast";
 import Loading from "../components/Loading";
 import Note from "../components/Note";
+import api from "../utils/axios";
 
 const Homepage = () => {
 	const [rateLimited, setRateLimited] = useState(false);
@@ -14,23 +15,17 @@ const Homepage = () => {
 	useEffect(() => {
 		const fetchNotes = async () => {
 			try {
-				const res = await fetch("http://localhost:5000/api/notes");
+				const res = await api.get("/notes");
 
-				// Manual status check
-				if (!res.ok) {
-					if (res.status === 429) {
-						setRateLimited(true);
-					} else {
-						toast.error("Failed to Load Notes");
-					}
-					throw new Error(`HTTP error! status: ${res.status}`);
-				}
-
-				const data = await res.json();
-				setNotes(data);
+				setNotes(res.data);
 				setRateLimited(false);
-				console.log(data);
+				console.log(res.data);
 			} catch (error) {
+				if (error.response && error.response.status === 429) {
+					setRateLimited(true);
+				} else {
+					toast.error("Failed to Load Notes");
+				}
 				console.log("Error occurred:");
 				console.error(error);
 			} finally {
