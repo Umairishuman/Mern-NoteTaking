@@ -40,7 +40,7 @@ if (process.NODE_ENV == "production") {
 	});
 }
 connectDB().then(() => {
-	app.listen(5000, () => {
+	app.listen(PORT, () => {
 		console.log("Server Started on Port 5000");
 	});
 });
