@@ -33,18 +33,16 @@ app.use("/api/notes", noteRouter);
 
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static(path.join(__dirname, "../front-end/dist")));
-
-	app.get("*", (req, res, next) => {
-		// Only handle frontend routes, not /api
-		if (req.originalUrl.startsWith("/api")) return next();
-
+	console.log("here is the problem");
+	// At the bottom of app.js
+	app.get(/^\/(?!api).*/, (req, res) => {
 		const indexPath = path.join(
 			__dirname,
 			"../front-end",
 			"dist",
 			"index.html"
 		);
-		console.log("Serving index.html from:", indexPath);
+		console.log("Serving frontend for:", req.originalUrl);
 		res.sendFile(indexPath);
 	});
 }
