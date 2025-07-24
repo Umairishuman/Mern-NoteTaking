@@ -1,0 +1,20 @@
+{
+	"name": "mern-notetaking",
+	"version": "1.0.0",
+	"main": "index.js",
+	"scripts": {
+		"build": "npm install --prefix backend && npm install --prefix front-end && npm run build --prefix front-end"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/Umairishuman/Mern-NoteTaking.git"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/Umairishuman/Mern-NoteTaking/issues"
+	},
+	"homepage": "https://github.com/Umairishuman/Mern-NoteTaking#readme",
+	"description": ""
+}
