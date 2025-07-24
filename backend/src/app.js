@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 });
 app.use("/api/notes", noteRouter);
 
-if (process.NODE_ENV == "production") {
+if (process.env.NODE_ENV === "production") {
 	app.use(express.static(path.join(__dirname, "../front-end/dist")));
 	app.get("*", (req, res) => {
 		res.sendFile(
@@ -41,6 +41,6 @@ if (process.NODE_ENV == "production") {
 }
 connectDB().then(() => {
 	app.listen(PORT, () => {
-		console.log("Server Started on Port 5000");
+		console.log(`Server Started on Port ${PORT}`);
 	});
 });
