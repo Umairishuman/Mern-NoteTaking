@@ -34,9 +34,14 @@ app.use("/api/notes", noteRouter);
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static(path.join(__dirname, "../front-end/dist")));
 	app.get("*", (req, res) => {
-		res.sendFile(
-			path.join(__dirname, "../front-end", "dist", "index.html")
+		const indexPath = path.join(
+			__dirname,
+			"../front-end",
+			"dist",
+			"index.html"
 		);
+		console.log("Serving index.html from:", indexPath);
+		res.sendFile(indexPath);
 	});
 }
 connectDB().then(() => {
