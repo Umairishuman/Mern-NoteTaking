@@ -5,19 +5,20 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
 import api from "../utils/axios.js";
-const Note = ({ note }) => {
+const Note = ({ note, setNotes }) => {
 	console.log(note);
 
 	const navigate = useNavigate();
 
 	const [deleting, setDeleting] = useState(false);
 
-	const handleDelete = async (e) => {
+	const handleDelete = async (e, _id) => {
 		e.preventDefault();
 		setDeleting(true);
 
 		try {
-			await api.delete(`/notes/${note._id}`);
+			await api.delete(`/notes/${_id}`);
+			setNotes((prev) => prev.filter((note) => note._id != _id));
 			toast.success("Note Deleted Successfully!");
 			navigate("/");
 		} catch (error) {
@@ -46,7 +47,7 @@ const Note = ({ note }) => {
 						<PenSquareIcon className="size-4" />
 						<button
 							className="btn btn-ghost btn-xs text-error"
-							onClick={handleDelete}
+							onClick={(e) => handleDelete(e, note._id)}
 							disabled={deleting}
 						>
 							{deleting ? "..." : <Trash2Icon />}
