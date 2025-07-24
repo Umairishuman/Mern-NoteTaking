@@ -33,7 +33,11 @@ app.use("/api/notes", noteRouter);
 
 if (process.env.NODE_ENV === "production") {
 	app.use(express.static(path.join(__dirname, "../front-end/dist")));
-	app.get("*", (req, res) => {
+
+	app.get("*", (req, res, next) => {
+		// Only handle frontend routes, not /api
+		if (req.originalUrl.startsWith("/api")) return next();
+
 		const indexPath = path.join(
 			__dirname,
 			"../front-end",
@@ -44,6 +48,7 @@ if (process.env.NODE_ENV === "production") {
 		res.sendFile(indexPath);
 	});
 }
+
 connectDB().then(() => {
 	app.listen(PORT, () => {
 		console.log(`Server Started on Port ${PORT}`);
